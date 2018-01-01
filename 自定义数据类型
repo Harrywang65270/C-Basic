@@ -47,3 +47,43 @@ struct POINT{
 POINT points[100];
 
 
+如果成员本身又是一个结构体对象指针，就要用指针成员引用运算符一级一级地引用成员。
+例如：
+
+DATE d = {1981,1,1};
+TEACHER { //教师信息类型
+       int no;
+       char name[21]
+       DATE *pbirthday;
+}
+
+a = {1001, "Li Min", &d}, *p=&a;
+p -> no =10001;
+p -> pbirthday -> year = 2008;
+
+-> 为指针成员引用运算符
+
+
+结构体与函数
+
+将结构体对象作为函数实参传递到函数中，采用值传递方式。例如：
+struct DATA {
+   int data;
+   char name[10];
+};
+
+void fun1(DATA x);
+void fun2()
+{
+    DATA a={1, "LiMin"};
+    fun1(a)
+}
+
+将结构体数组作为函数参数，采用地址传递方式。 
+函数调用实参是数组名，形参必须是同类型的结构体数组。例如:
+void fun3(DATA X[])
+void fun4()
+{
+ DATA A[3] = {{1, "LiMin"},{2,"MaGang"}}
+ fun3(A);
+}
