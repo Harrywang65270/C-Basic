@@ -26,7 +26,47 @@ class 类名{ //类体
     成员列表
 }；
 
+对类的成员进行访问，来自两个访问源： 类成员和类用户。
+
+类成员指类本身的成员函数，类用户指类外部的使用者，包括全局函数，另一个类的成员函数。
 
 
+在类中声明数据成员
+
+class Cube { // Cube类表示立方体
+... // 其他成员
+    long color;
+    double x,y,z,side; //数据成员
+}
+
+类的数据成员可以是基本类型，数组，指针，引用，共用体，枚举类型，void指针， const限定等数据类型
+class ADT{
+   long color;
+   double x,y,z,side;
+   int a[10];
+   char *s;
+   char &r;
+   void *p; // void指针
+}
 
 
+类的数据成员还可以是成员对象 （member object），即类类型或结构体类型的对象。若类A中
+嵌入了类B的对象，称这个对象为子对象（subobject）。
+
+
+类的成员函数
+
+class Data { //Data类定义
+public:
+   void set(int d); //成员函数原型声明
+   int get(){  //成员函数定义
+        return data;
+    } // get 函数定义结束
+private:
+   int data; //数据成员
+}；  //Data类定义结束
+
+void Data::set(int d)
+{
+     data = d 
+}
