@@ -63,6 +63,9 @@ p -> pbirthday -> year = 2008;
 
 -> 为指针成员引用运算符
 
+!!!
+foo->bar is equivalent to (*foo).bar
+!!!
 
 结构体与函数
 
