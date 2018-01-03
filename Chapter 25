@@ -53,6 +53,23 @@ class ADT{
 类的数据成员还可以是成员对象 （member object），即类类型或结构体类型的对象。若类A中
 嵌入了类B的对象，称这个对象为子对象（subobject）。
 
+class ADT{
+      struct Point {int x,y;};
+      union UData {Point p; long color; };
+      enum COLORS {RED, GREEN, BLUE, WHITE };
+      class Nested { // 嵌套类定义
+      ...// 成员函数
+      Point start; //数据成员
+      UData end; //数据成员
+      COLORS color; //数据成员
+      }
+      
+      typedef Point* LPPOINT; //声明类型别名
+      ...// 成员函数
+      ...// 数据成员
+
+}
+
 
 类的成员函数
 
@@ -68,5 +85,66 @@ private:
 
 void Data::set(int d)
 {
-     data = d 
+     data = d; //访问类的数据成员
 }
+
+void set(int d) //全局普通函数
+{
+ ... // 函数体
+}
+
+说明：
+（1） :: 是作用域限定符（field qualified）。 如果在作用域限定符的前面没有类名，
+或者函数既无类名又无作用域限定符，例如：
+::set(10) 或 set(10)
+
+则表示set函数不属于任何类，这个函数不是成员函数，而是全局的普通函数。此时的（：：）不是类作用域限定符的含义，
+而是命名空间域限定符的含义。
+
+（2） 在成员函数中可以访问这个类的任何成员，无论它是公有的或者是私有的，是类内部声明的还是类外部定义的。
+
+（3） 虽然成员函数在类的外部定义，但在调用成员函数时会根据在类中声明的函数原型找到函数的定义（即函数代码），
+从而执行该函数。因此类的成员函数原型声明必须出现在成员函数定义之前，否则编译时会出错。
+
+C++提供一种提高函数效率的方法，即在编译时将被调函数的代码
+直接嵌入到主调函数中，取消调用这个环节。这种嵌入到主调函数中的函数称为内联函数（inline function）
+
+inline 返回类型 函数名（形式参数列表）
+{
+       函数体
+}
+
+2. 内联成员函数
+类的成员函数可以指定为inline， 即内联函数。
+
+默认情况下，在类体中定义的成员函数若不包括循环等控制结构，符合内联函数要求时，
+c++会自动将它们作为内联函数处理（隐式inline）
+
+class Data {
+    int getx() {return x;}
+    inline int gety() {return y;}       //显示指定内联成员函数 
+    inline void setxy(int _x, int _y);   //显示指定内联成员函数
+    void display();
+    int x,y;
+}；
+
+inline void Data::setxy(int _x, int _y)
+{
+    x = _x, y = _y;
+}
+
+void Data::display()
+{
+   ...函数体
+}
+
+
+class Point; // Point类声明，非Point类定义，因为没有类体
+
+class Line{
+    Point a ; // 错误，不能使用仅有类声明而没有类定义的类定义数据对象
+    Point *pp, &rp; // 正确， 类可以有指向自身类型的指针或引用的数据成员。
+
+}
+}
+
